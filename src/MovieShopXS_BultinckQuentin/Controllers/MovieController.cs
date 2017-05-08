@@ -9,7 +9,7 @@ using MovieShopXS_BultinckQuentin.Repositories;
 
 namespace MovieShopXS_BultinckQuentin.Controllers
 {
-    [Route("")]
+    [Route("")] // default controller
     public class MovieController : Controller
     {
 
@@ -20,12 +20,13 @@ namespace MovieShopXS_BultinckQuentin.Controllers
             repository = rep;
         }
 
-        [Route("")]
+        [Route("")] // default action
         [Route("Movies")]
         // GET: /<controller>/
         public IActionResult Movies()
         {
-            return View();
+            ICollection<Movie>
+            return View(repository.getMovies());
         }
     }
 }
