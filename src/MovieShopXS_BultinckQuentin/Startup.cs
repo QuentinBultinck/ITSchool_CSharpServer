@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MovieShopXS_BultinckQuentin.Entities;
+using MovieShopXS_BultinckQuentin.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace MovieShopXS_BultinckQuentin
 {
@@ -37,6 +40,11 @@ namespace MovieShopXS_BultinckQuentin
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
+
+            services.AddDbContext<MovieBaseContext>(options =>
+                       options.UseSqlServer(Configuration.GetConnectionString("MovieBaseDatabase")));
+            services.AddScoped<MovieBaseContext>();
+            services.AddScoped<MovieBaseRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,9 +71,11 @@ namespace MovieShopXS_BultinckQuentin
 
             app.UseMvc(routes =>
             {
+                /*
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                name: "default",
+                template: "{controller=Home}/{action=Index}/{id?}");
+                */
             });
         }
     }
